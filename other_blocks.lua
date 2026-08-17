@@ -6,6 +6,7 @@ minetest.register_node("xtraores:antracite_torch", {
 	range = 5.0,
 	stack_max = 999,
 	mesh = "torch_floor.obj",
+	use_texture_alpha = true,
 	inventory_image = "xtraores_antracite_torch.png",
 	wield_image = "xtraores_antracite_torch.png",
 	tiles = {{
@@ -56,7 +57,8 @@ minetest.register_node("xtraores:antracite_torch", {
 minetest.register_node("xtraores:antracite_torch_wall", {
 	drawtype = "mesh",
 	mesh = "torch_wall.obj",
-	tiles = {{
+	use_texture_alpha = true,
+		tiles = {{
 		    name = "xtraores_antracite_torch_on_floor_animated.png",
 		    animation = {type = "vertical_frames", aspect_w = 16, aspect_h = 16, length = 3.3}
 	}},
