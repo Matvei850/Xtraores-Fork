@@ -1,7 +1,7 @@
 --------------------antracite torch-------------
 
 minetest.register_node("xtraores:antracite_torch", {
-		description = "" ..core.colorize("#68fff6", "Antracite torch\n")..core.colorize("#FFFFFF", "range: 5\n")..core.colorize("#FFFFFF", "Can be placed"),
+		description = "" ..core.colorize("#68fff6", "Antracite torch\n")..core.colorize("#FFFFFF", "range: 14\n")..core.colorize("#FFFFFF", "Can be placed"),
 	drawtype = "mesh",
 	range = 5.0,
 	stack_max = 999,
@@ -79,7 +79,6 @@ minetest.register_node("xtraores:antracite_torch_wall", {
 minetest.register_node("xtraores:antracite_torch_ceiling", {
 	drawtype = "mesh",
 	mesh = "torch_ceiling.obj",
-	use_texture_alpha = true,
 	tiles = {{
 		    name = "xtraores_antracite_torch_on_floor_animated.png",
 		    animation = {type = "vertical_frames", aspect_w = 16, aspect_h = 16, length = 3.3}
@@ -97,3 +96,15 @@ minetest.register_node("xtraores:antracite_torch_ceiling", {
 	},
 	sounds = default.node_sound_wood_defaults(),
 })
+
+--------------------antracite lamp-------------
+minetest.register_node("xtraores:antracite_lamp", {
+		description = "" ..core.colorize("#68fff6", "Antracite lamp\n")..core.colorize("#FFFFFF", "range: 15\n")..core.colorize("#FFFFFF", "Can be placed"),	paramtype2 = "facedir",
+	place_param2 = 0,
+	tiles = {"xtraores_antracite_lamp.png"},
+	stack_max= 999,
+	light_source = 15,
+        groups = {cracky = 3},
+	sounds = default.node_sound_glass_defaults(),
+})
+
