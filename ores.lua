@@ -190,6 +190,15 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = 'xtraores:antracite_lamp',
+	recipe = {
+		{'default:steel_ingot', 'default:glass', 'default:steel_ingot'},
+		{'default:glass', 'xtraores:antracite_torch', 'default:glass'},
+		{'default:steel_ingot', 'default:glass', 'default:steel_ingot'},
+	}
+})
+
+minetest.register_craft({
 	type = "fuel",
 	recipe = "xtraores:antracite_ore",
 	burntime = 164,
