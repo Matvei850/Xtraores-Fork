@@ -79,6 +79,7 @@ minetest.register_node("xtraores:antracite_torch_wall", {
 minetest.register_node("xtraores:antracite_torch_ceiling", {
 	drawtype = "mesh",
 	mesh = "torch_ceiling.obj",
+	use_texture_alpha = true,
 	tiles = {{
 		    name = "xtraores_antracite_torch_on_floor_animated.png",
 		    animation = {type = "vertical_frames", aspect_w = 16, aspect_h = 16, length = 3.3}
