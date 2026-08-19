@@ -104,7 +104,7 @@ minetest.register_craft({
 })
 
 minetest.register_craftitem('xtraores:duraglass_handle', {
-		description = "".. core.colorize("#68fff6", "Duraglass handle\n")..core.colorize("#FFFFFF", "Material\n")..core.colorize("#FFFFFF", "Xtraores material level: 9-12"),
+		description = "".. core.colorize("#68fff6", "Duraglass handle\n")..core.colorize("#FFFFFF", "Material\n")..core.colorize("#FFFFFF", "Xtraores material level: 9-13"),
 	inventory_image = "xtraores_duraglass_handle.png",
 	stack_max= 999,
 })
