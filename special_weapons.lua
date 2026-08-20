@@ -468,7 +468,7 @@ minetest.register_craft({
 	recipe = {
 		{'', 'xtraores:uranium_bar', 'xtraores:uranium_bar'},
 		{'', 'xtraores:uranium_bar', ''},
-		{'xtraores:titanium_bar', 'xtraores:duraglass_handle', ''},
+		{'', 'xtraores:duraglass_handle', ''},
 	}
 })
 
@@ -563,7 +563,7 @@ minetest.register_tool("xtraores:titanium_handgun", {
 	meta = user:get_meta()
  	xo_wpn_c_down = meta:get_int("xo_weapon_cooldown") or 0
 	if xo_wpn_c_down > 12 then
-	shooter = user
+                shooter = user
 		meta:set_int("xo_weapon_cooldown",0) 
 		local inv = user:get_inventory()
 		if not inv:contains_item("main", "xtraores:titanium_bullet 1") then
@@ -749,3 +749,126 @@ minetest.register_craft({
 		{'', 'xtraores:titanium_bar', ''},
 	}
 })
+
+-----------------------iridium guns---------------
+
+minetest.register_tool("xtraores:iridium_railgun", {
+		description = "".. core.colorize("#68fff6", "iridium railgun\n")..core.colorize("#FFFFFF", "Ranged damage: 30\n")..core.colorize("#FFFFFF", "Bullet speed: 60\n") ..core.colorize("#FFFFFF", "Reload delay: 12\n") ..core.colorize("#FFFFFF", "Xtraores gun level: 12"),
+	inventory_image = "xtraores_iridium_railgun.png",
+	wield_scale = {x=2.0,y=2.0,z=1.3},
+	projectile_attack = "xtraores:railgunshot",
+	projectile_sound = "xtraores_railgun",
+	needed_ammo = "xtraores:railgun_ammo 5",
+	consumed_ammo = 0,
+	projectile_cooldown = 7,
+	projectile_velocity = 60,
+	projectile_gravity = 0,
+	projectile_spread = 20,
+	range = 0,
+})
+
+local xtraores_railgunshot = {
+	physical = false,
+	timer = 0,
+	glow = 35,
+	visual = "wielditem",
+	visual_size = {x=0.25, y=0.4,},
+	textures = {'xtraores:railgun_shot'},
+	lastpos= {},
+	collisionbox = {0, 0, 0, 0, 0, 0},
+}
+xtraores_railgunshot.on_step = function(self, dtime)
+	self.timer = self.timer + dtime
+	local pos = self.object:getpos()
+	local node = minetest.get_node(pos)
+	local shooter = shooter or self.object
+
+	if self.timer > 0.05 then
+		local objs = minetest.get_objects_inside_radius({x = pos.x, y = pos.y, z = pos.z}, 1)
+		for k, obj in pairs(objs) do
+			if obj:get_luaentity() ~= nil then
+				if obj:get_luaentity().name ~= "xtraores:railgunshot" and obj:get_luaentity().name ~= "__builtin:item" then
+					local damage = 30
+					obj:punch(shooter, 1.0, {
+						full_punch_interval = 1.0,
+						damage_groups= {fleshy = damage},
+					}, nil)
+					minetest.sound_play("default_dig_cracky", {pos = self.lastpos, gain = 0.8})
+					self.object:remove()
+				end
+			else
+				local damage = 30
+				obj:punch(shooter, 1.0, {
+					full_punch_interval = 1.0,
+					damage_groups= {fleshy = damage},
+				}, nil)
+				minetest.sound_play("default_dig_cracky", {pos = self.lastpos, gain = 0.8})
+				self.object:remove()
+			end
+		end
+	end
+
+	if self.lastpos.x ~= nil then
+		if node ~= nil and node.name ~= nil and minetest.registered_nodes[node.name] ~= nil then
+			if minetest.registered_nodes[node.name].walkable then
+				if not minetest.setting_getbool("creative_mode") then
+					minetest.add_item(self.lastpos, "")
+				end
+				minetest.sound_play("default_dig_cracky", {pos = self.lastpos, gain = 0.8})
+				self.object:remove()
+			end
+		end
+	end
+	self.lastpos= {x = pos.x, y = pos.y, z = pos.z}
+end
+
+minetest.register_entity("xtraores:railgunshot", xtraores_railgunshot)
+
+minetest.register_craftitem("xtraores:railgun_shot", {
+	inventory_image = "xtraores_railgun_shot.png",
+})
+
+minetest.register_craftitem('xtraores:railgun_ammo', {
+		description = "".. core.colorize("#68fff6", "Raligun Ammo\n")..core.colorize("#FFFFFF", "Used by guns of level 12\n")..core.colorize("#FFFFFF", "Xtraores material level: 12"),
+	inventory_image = "xtraores_railgun_ammo.png",
+	stack_max= 1000,
+})
+
+minetest.register_craft({
+	output = "xtraores:railgun_ammo 250",
+	recipe = {
+	{"","xtraores:iridium_bar",""},
+	{"xtraores:iridium_bar","default:mese","xtraores:iridium_bar"},
+	{"","xtraores:iridium_bar",""},
+	}
+})
+
+minetest.register_craft({
+	output = "xtraores:iridium_railgun",
+	recipe = {
+	{"xtraores:iridium_railgun_barrel","xtraores:iridium_railgun_handler",""},
+	{"","",""},
+	{"","",""},
+	}
+})
+
+if minetest.get_modpath("technic") then
+
+minetest.clear_craft({
+	output = "xtraores:iridium_railgun",
+	recipe = {
+	{"xtraores:iridium_railgun_barrel","xtraores:iridium_railgun_handler",""},
+	{"","",""},
+	{"","",""},
+	}
+})
+
+minetest.register_craft({
+	output = "xtraores:iridium_railgun",
+	recipe = {
+	{"xtraores:iridium_railgun_barrel","technic:laser_mk3",""},
+	{"","xtraores:iridium_railgun_handler",""},
+	{"","",""},
+	}
+})
+end
