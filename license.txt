@@ -1,1 +1,2 @@
-cc-by-sa 3.0
+CC-BY-SA-3.0
+Original Author - daviddoesminetest
