@@ -873,6 +873,71 @@ minetest.register_craft({
 	}
 })
 
+-----iridium--------
+
+minetest.register_node("xtraores:brick_iridium", {
+		description = "" ..core.colorize("#68fff6", "iridium brick\n")..core.colorize("#FFFFFF", "Can be placed\n")..core.colorize("#FFFFFF", "Material"),
+	tiles = {"xtraores_brick_iridium.png"},
+	paramtype2 = "facedir",
+	place_param2 = 0,
+	is_ground_content = false,
+	stack_max= 999,
+	groups = {cracky = 12},
+	on_blast = function() end,
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_craft( {
+	type = "shapeless",
+	output = "xtraores:brick_iridium",
+	recipe = {"xtraores:iridium_ore", "default:cobble"},
+})
+
+minetest.register_node("xtraores:block_iridium", {
+		description = "" ..core.colorize("#68fff6", "iridium block\n")..core.colorize("#FFFFFF", "Can be placed\n")..core.colorize("#FFFFFF", "Material"),
+	tiles = {"xtraores_block_iridium.png"},
+	paramtype2 = "facedir",
+	place_param2 = 0,
+	is_ground_content = false,
+	stack_max= 999,
+	groups = {cracky = 12},
+	on_blast = function() end,
+	sounds = default.node_sound_stone_defaults(),
+})
+minetest.register_craft({
+	output = 'xtraores:block_iridium',
+	recipe = {
+		{'xtraores:iridium_bar', 'xtraores:iridium_bar', 'xtraores:iridium_bar'},
+		{'xtraores:iridium_bar', 'xtraores:iridium_bar', 'xtraores:iridium_bar'},
+		{'xtraores:iridium_bar', 'xtraores:iridium_bar', 'xtraores:iridium_bar'},
+	}
+})
+
+minetest.register_craft({
+	output = 'xtraores:iridium_bar 9',
+	recipe = {
+		{'xtraores:block_iridium'},
+	}
+})
+minetest.register_node("xtraores:decobrick_iridium", {
+		description = "" ..core.colorize("#68fff6", "Decorative iridium brick\n")..core.colorize("#FFFFFF", "Can be placed"),
+	tiles = {"xtraores_decobrick_iridium.png"},
+	is_ground_content = false,
+	stack_max= 999,
+	groups = {cracky = 12},
+	on_blast = function() end,
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_craft({
+	output = 'xtraores:decobrick_iridium 4',
+	recipe = {
+		{'xtraores:brick_iridium', 'xtraores:brick_iridium', ''},
+		{'xtraores:brick_iridium', 'xtraores:brick_iridium', ''},
+
+	}
+})
+
 -----adamantium--------
 
 minetest.register_node("xtraores:brick_adamantium", {
