@@ -985,7 +985,7 @@ minetest.register_craftitem("xtraores:iridium_shot", {
 })
 
 minetest.register_craftitem('xtraores:iridium_rifle_bullet', {
-		description = "".. core.colorize("#68fff6", "Iridiumr Rifle Bullet\n")..core.colorize("#FFFFFF", "Used by guns of level 12\n")..core.colorize("#FFFFFF", "Xtraores material level: 12"),
+		description = "".. core.colorize("#68fff6", "Iridium Rifle Bullet\n")..core.colorize("#FFFFFF", "Used by guns of level 12\n")..core.colorize("#FFFFFF", "Xtraores material level: 12"),
 	inventory_image = "xtraores_iridium_rifle_bullet.png",
 	stack_max= 50,
 })
