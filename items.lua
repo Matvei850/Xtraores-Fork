@@ -436,6 +436,7 @@ minetest.clear_craft({
 	{"xtraores:iridium_bar","default:mese","xtraores:iridium_bar"},
 	}
 })
+
 minetest.register_craft({
 	output = "xtraores:iridium_railgun_barrel",
 	recipe = {
@@ -458,6 +459,74 @@ minetest.register_craft({
 	{"xtraores:electride","",""},
 	{"","xtraores:electride","xtraores:iridium_bar"},
 	{"","xtraores:iridium_bar","xtraores:electride"},
+	}
+})
+
+--------------------iridium rifle-------------
+
+minetest.register_craftitem('xtraores:iridium_rifle_barrel', {
+		description = "".. core.colorize("#68fff6", "Iridium Rifle Barrel\n")..core.colorize("#FFFFFF", "Material\n")..core.colorize("#FFFFFF", "Xtraores material level: 12"),
+	inventory_image = "xtraores_iridium_rifle_barrel.png",
+	stack_max= 10,
+})
+
+minetest.register_craft({
+	output = "xtraores:iridium_rifle_barrel",
+	recipe = {
+	{"default:mese","xtraores:iridium_bar","xtraores:iridium_bar"},
+	{"xtraores:iridium_bar","default:mese","xtraores:iridium_bar"},
+	{"xtraores:iridium_bar","xtraores:iridium_bar","default:mese"},
+	}
+})
+
+if minetest.get_modpath("technic") then
+
+minetest.clear_craft({
+	output = "xtraores:iridium_rifle_barrel",
+	recipe = {
+	{"default:mese","xtraores:iridium_bar","xtraores:iridium_bar"},
+	{"xtraores:iridium_bar","default:mese","xtraores:iridium_bar"},
+	{"xtraores:iridium_bar","xtraores:iridium_bar","default:mese"},
+	}
+})
+
+minetest.register_craft({
+	output = "xtraores:iridium_rifle_barrel",
+	recipe = {
+	{"technic:blue_energy_crystal","xtraores:iridium_bar","xtraores:iridium_bar"},
+	{"xtraores:iridium_bar","technic:blue_energy_crystal","xtraores:iridium_bar"},
+	{"xtraores:iridium_bar","xtraores:iridium_bar","technic:blue_energy_crystal"},
+	}
+})
+end
+
+minetest.register_craftitem('xtraores:iridium_rifle_base', {
+		description = "".. core.colorize("#68fff6", "Iridium Rifle Base\n")..core.colorize("#FFFFFF", "Material\n")..core.colorize("#FFFFFF", "Xtraores material level: 12"),
+	inventory_image = "xtraores_iridium_rifle_base.png",
+	stack_max= 10,
+})
+
+minetest.register_craft({
+	output = "xtraores:iridium_rifle_base",
+	recipe = {
+	{"xtraores:iridium_bar","xtraores:rarium_bar","xtraores:iridium_bar"},
+	{"xtraores:rarium_bar","default:diamondblock","xtraores:rarium_bar"},
+	{"xtraores:iridium_bar","xtraores:rarium_bar","xtraores:iridium_bar"},
+	}
+})
+
+minetest.register_craftitem('xtraores:iridium_rifle_handler', {
+		description = "".. core.colorize("#68fff6", "Iridium Rifle Handler\n")..core.colorize("#FFFFFF", "Material\n")..core.colorize("#FFFFFF", "Xtraores material level: 12"),
+	inventory_image = "xtraores_iridium_rifle_handler.png",
+	stack_max= 10,
+})
+
+minetest.register_craft({
+	output = "xtraores:iridium_rifle_handler",
+	recipe = {
+	{"xtraores:iridium_bar","xtraores:iridium_bar","xtraores:iridium_bar"},
+	{"xtraores:iridium_bar","xtraores:iridium_bar","xtraores:electride"},
+	{"xtraores:iridium_bar","xtraores:electride","xtraores:electride"},
 	}
 })
 
