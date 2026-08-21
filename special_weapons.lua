@@ -770,7 +770,7 @@ minetest.register_tool("xtraores:iridium_railgun", {
 local xtraores_railgunshot = {
 	physical = false,
 	timer = 0,
-	glow = 35,
+	glow = 50,
 	visual = "wielditem",
 	visual_size = {x=0.25, y=0.4,},
 	textures = {'xtraores:railgun_shot'},
@@ -872,3 +872,138 @@ minetest.register_craft({
 	}
 })
 end
+
+minetest.register_tool("xtraores:iridium_rifle", {
+		description = "".. core.colorize("#68fff6", "Iridium Rifle\n")..core.colorize("#FFFFFF", "Ranged damage: 50\n")..core.colorize("#FFFFFF", "Bullet speed: 100\n")..core.colorize("#FFFFFF", "Reload delay: 85\n")..core.colorize("#FFFFFF", "Xtraores gun level: 12"),
+	inventory_image = "xtraores_iridium_rifle.png",
+	wield_scale = {x=2.0,y=2.0,z=1.0},
+	range = 0,
+	on_use = function(itemstack, user, pointed_thing)
+	meta = user:get_meta()
+ 	xo_wpn_c_down = meta:get_int("xo_weapon_cooldown") or 0
+	if xo_wpn_c_down > 85 then
+	shooter = user
+		meta:set_int("xo_weapon_cooldown",0) 
+		local inv = user:get_inventory()
+		if not inv:contains_item("main", "xtraores:iridium_rifle_bullet 1") then
+			minetest.sound_play("xtraores_iridium_rifle_empty", {object=user})
+			return itemstack
+		end
+		if not minetest.setting_getbool("creative_mode") then
+			inv:remove_item("main", "xtraores:orichalcum_bullet ")	
+itemstack:add_wear(65535/9001)
+		end
+		local pos = user:getpos()
+		local dir = user:get_look_dir()
+		local yaw = user:get_look_yaw()
+		if pos and dir and yaw then
+			pos.y = pos.y + 1.6
+			local obj = minetest.add_entity(pos, "xtraores:iridiumshot")
+			if obj then
+				minetest.sound_play("xtraores_iridium_rifle", {object=obj})
+				obj:setvelocity({x=dir.x * 100, y=dir.y * 100, z=dir.z * 100})
+				obj:setacceleration({x=dir.x * 0, y=0, z=dir.z * 0})
+				obj:setyaw(yaw + math.pi)
+			pos.y = pos.y - 0.2
+			local obj = minetest.add_entity(pos, "xtraores:gunsmoke")
+				minetest.sound_play("xtraores_iridium_rifle", {object=obj})
+				obj:setvelocity({x=dir.x * 3, y=dir.y * 3, z=dir.z * 3})
+				obj:setacceleration({x=dir.x * -4, y=2, z=dir.z * -4})
+				obj:setyaw(yaw + math.pi)
+
+				local ent = obj:get_luaentity()
+				if ent then
+					ent.player = ent.player or user
+				end
+			end
+		end
+		end
+		return itemstack
+	end,
+})
+
+local xtraores_iridiumshot = {
+	physical = false,
+	timer = 0,
+	glow = 20,
+	visual = "wielditem",
+	visual_size = {x=0.4, y=0.8,},
+	textures = {'xtraores:iridium_shot'},
+	lastpos= {},
+	collisionbox = {0, 0, 0, 0, 0, 0},
+}
+xtraores_iridiumshot.on_step = function(self, dtime)
+	self.timer = self.timer + dtime
+	local pos = self.object:getpos()
+	local node = minetest.get_node(pos)
+	local shooter = shooter or self.object
+
+	if self.timer > 0.05 then
+		local objs = minetest.get_objects_inside_radius({x = pos.x, y = pos.y, z = pos.z}, 1.5)
+		for k, obj in pairs(objs) do
+			if obj:get_luaentity() ~= nil then
+				if obj:get_luaentity().name ~= "xtraores:iridiumshot" and obj:get_luaentity().name ~= "__builtin:item" then
+					local damage = 26
+					obj:punch(shooter, 1.0, {
+						full_punch_interval = 1.0,
+						damage_groups= {fleshy = damage},
+					}, nil)
+					minetest.sound_play("default_dig_cracky", {pos = self.lastpos, gain = 0.8})
+					self.object:remove()
+				end
+			else
+				local damage = 50
+				obj:punch(shooter, 1.0, {
+					full_punch_interval = 1.0,
+					damage_groups= {fleshy = damage},
+				}, nil)
+				minetest.sound_play("default_dig_cracky", {pos = self.lastpos, gain = 0.8})
+				self.object:remove()
+			end
+		end
+	end
+
+	if self.lastpos.x ~= nil then
+		if node ~= nil and node.name ~= nil and minetest.registered_nodes[node.name] ~= nil then
+			if minetest.registered_nodes[node.name].walkable then
+				if not minetest.setting_getbool("creative_mode") then
+					minetest.add_item(self.lastpos, "")
+				end
+				minetest.sound_play("default_dig_cracky", {pos = self.lastpos, gain = 0.8})
+				self.object:remove()
+			end
+		end
+	end
+	self.lastpos= {x = pos.x, y = pos.y, z = pos.z}
+end
+
+minetest.register_entity("xtraores:iridiumshot", xtraores_iridiumshot)
+
+minetest.register_craftitem("xtraores:iridium_shot", {
+	inventory_image = "xtraores_iridium_shot.png",
+	wield_scale = {x=2.0,y=1.0,z=1.0},
+})
+
+minetest.register_craftitem('xtraores:iridium_rifle_bullet', {
+		description = "".. core.colorize("#68fff6", "Iridiumr Rifle Bullet\n")..core.colorize("#FFFFFF", "Used by guns of level 12\n")..core.colorize("#FFFFFF", "Xtraores material level: 12"),
+	inventory_image = "xtraores_iridium_rifle_bullet.png",
+	stack_max= 50,
+})
+
+minetest.register_craft({
+	output = "xtraores:iridium_rifle_bullet 20",
+	recipe = {
+	{"xtraores:iridium_bar","default:diamondblock","xtraores:iridium_bar"},
+	{"default:mese","xtraores:iridium_bar","default:mese"},
+	{"xtraores:iridium_bar","default:diamondblock","xtraores:iridium_bar"},
+	}
+})
+
+minetest.register_craft({
+	output = "xtraores:iridium_rifle",
+	recipe = {
+	{"xtraores:iridium_rifle_barrel","xtraores:iridium_rifle_base",""},
+	{"","","xtraores:iridium_rifle_handler"},
+	{"","",""},
+	}
+})
