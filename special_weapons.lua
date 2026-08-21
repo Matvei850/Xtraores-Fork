@@ -829,7 +829,7 @@ minetest.register_craftitem("xtraores:railgun_shot", {
 })
 
 minetest.register_craftitem('xtraores:railgun_ammo', {
-		description = "".. core.colorize("#68fff6", "Raligun Ammo\n")..core.colorize("#FFFFFF", "Used by guns of level 12\n")..core.colorize("#FFFFFF", "Xtraores material level: 12"),
+		description = "".. core.colorize("#68fff6", "Railgun Ammo\n")..core.colorize("#FFFFFF", "Used by guns of level 12\n")..core.colorize("#FFFFFF", "Xtraores material level: 12"),
 	inventory_image = "xtraores_railgun_ammo.png",
 	stack_max= 1000,
 })
