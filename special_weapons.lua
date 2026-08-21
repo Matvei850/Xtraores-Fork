@@ -1002,8 +1002,8 @@ minetest.register_craft({
 minetest.register_craft({
 	output = "xtraores:iridium_rifle",
 	recipe = {
-	{"xtraores:iridium_rifle_barrel","xtraores:iridium_rifle_base",""},
-	{"","","xtraores:iridium_rifle_handler"},
+	{"xtraores:iridium_rifle_barrel","xtraores:iridium_rifle_base","xtraores:iridium_rifle_handler"},
+	{"","",""},
 	{"","",""},
 	}
 })
