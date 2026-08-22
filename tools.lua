@@ -1535,11 +1535,11 @@ minetest.register_craft({
 -------------------adamantium set-------------------
 
 minetest.register_tool("xtraores:pickaxe_adamantium", {
-		description = "".. core.colorize("#68fff6", "adamantium pickaxe\n")..core.colorize("#FFFFFF", "Mele damage: 25\n")..core.colorize("#FFFFFF", "Full punch interval: 0.60\n")..core.colorize("#FFFFFF", "range: 7.0\n")..core.colorize("#FFFFFF", "Xtraores tool level: 13"),
+		description = "".. core.colorize("#68fff6", "adamantium pickaxe\n")..core.colorize("#FFFFFF", "Mele damage: 25\n")..core.colorize("#FFFFFF", "Full punch interval: 0.66\n")..core.colorize("#FFFFFF", "range: 7.0\n")..core.colorize("#FFFFFF", "Xtraores tool level: 13"),
 	inventory_image = "xtraores_pickaxe_adamantium.png",
 	range = 7.0,
 	tool_capabilities = {
-		full_punch_interval = 0.60,
+		full_punch_interval = 0.66,
 		max_drop_level=1,
 		groupcaps={
 			cracky = {times={[13]=32.00,[12]=20.00, [11]=15.00, [10]=7.50, [9]=6.00, [8]=4.50, [7]=3.00, [6]=2.00, [5]=1.75, [4]=0.60, [1]=0.20, [2]=0.12, [3]=0.05}, uses=450, maxlevel=3},
